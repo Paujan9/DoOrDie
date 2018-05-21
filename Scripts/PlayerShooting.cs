@@ -6,6 +6,7 @@ public class PlayerShooting : MonoBehaviour {
     public int damagePerShot = 20;
     public float timeBetweenBullets = 0.15f;
     public float range = 100f;
+    public AudioClip saudymoGarsas;
 
     float timer;
     Ray shootRay;
@@ -14,12 +15,16 @@ public class PlayerShooting : MonoBehaviour {
     LineRenderer gunLine;
     Light gunLight;
     float effectsDisplayTime = 0.2f;
+    AudioSource audio;
 
-    private void Awake()
+    private void Start()
     {
         shootableMask = LayerMask.GetMask("Shootable");
         gunLine = GetComponent<LineRenderer>();
         gunLight = GetComponent<Light>();
+        //AudioSource audio = GetComponent<AudioSource>();
+        audio = gameObject.GetComponent<AudioSource>();
+        audio.clip = saudymoGarsas;
     }
 	
 	// Update is called once per frame
@@ -43,6 +48,7 @@ public class PlayerShooting : MonoBehaviour {
     }
     void Shoot()
     {
+        audio.Play();
         timer = 0f;
 
         gunLight.enabled = true;
